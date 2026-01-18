@@ -2,20 +2,20 @@ package com.upendra.model;
 
 public class PlayingPiece {
 
-    private final Piece piece;
+    private final Cell cell;
 
-    public PlayingPiece(Piece piece) {
-        this.piece = piece;
+    public PlayingPiece(Cell cell) {
+        this.cell = cell;
     }
 
-    public Piece getPiece() {
-        return piece;
+    public Cell getPiece() {
+        return cell;
     }
 
     @Override
     public String toString() {
         return "PlayingPiece{" +
-                "piece=" + piece +
+                "piece=" + cell +
                 '}';
     }
 }

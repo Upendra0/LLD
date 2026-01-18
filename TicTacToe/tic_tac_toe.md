@@ -11,7 +11,7 @@
 
 ## 2. entities with relationships, method contracts
 1. Player (name, PlayingPiece)
-2. TicTacToeBoard (3*3[][] piece) && (setCell(), isValidCell(), toString())
+2. TicTacToeBoard (3*3[][] cell) && (setCell(), isValidCell(), toString())
 3. Piece (X, O, $)
 4. PlayingPiece (Piece)--->PlayingPieceX, PlayingPieceY
 5. TicTacToeGame (List<Player>,  currentPlayer) & (startGame(), isGameEnded(), getWinner())
