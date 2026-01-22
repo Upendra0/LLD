@@ -1,6 +1,6 @@
 package com.upendra.model;
 
-public enum TicTacToeSymbol implements Symbol {
+public enum TicTacToePieceSymbol implements PieceSymbol {
    X, O;
 
     @Override

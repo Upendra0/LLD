@@ -1,18 +1,9 @@
 package com.upendra.model;
 
-public class Cell {
-    private final Symbol symbol;
-
-    public Cell(Symbol symbol) {
-        this.symbol = symbol;
-    }
-
-    public Symbol getSymbol() {
-        return this.symbol;
-    }
+public record Cell(PieceSymbol pieceSymbol) {
 
     @Override
     public String toString() {
-        return this.symbol.toString();
+        return this.pieceSymbol.toString();
     }
 }

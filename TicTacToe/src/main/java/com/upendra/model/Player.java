@@ -3,26 +3,26 @@ package com.upendra.model;
 public class Player {
 
     private final String name;
-    private final Symbol symbol;
+    private final PieceSymbol pieceSymbol;
 
-    public Player(String name, Symbol playingSymbol) {
+    public Player(String name, PieceSymbol playingPieceSymbol) {
         this.name = name;
-        this.symbol = playingSymbol;
+        this.pieceSymbol = playingPieceSymbol;
     }
 
     public String getName() {
         return name;
     }
 
-    public Symbol getSymbol() {
-        return this.symbol;
+    public PieceSymbol getSymbol() {
+        return this.pieceSymbol;
     }
 
     @Override
     public String toString() {
         return "Player{" +
                 "name='" + name + '\'' +
-                ",symbol=" + this.symbol +
+                ",symbol=" + this.pieceSymbol +
                 '}';
     }
 }

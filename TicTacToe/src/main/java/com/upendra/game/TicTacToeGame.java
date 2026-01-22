@@ -1,11 +1,11 @@
-package com.upendra;
+package com.upendra.game;
 
 import com.upendra.model.*;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
-public class TicTacToeGame {
+public class TicTacToeGame implements Game {
     private final List<Player> players;
     private final Board gameBoard;
     private int currentPlayerPosition;
@@ -13,14 +13,15 @@ public class TicTacToeGame {
 
     public TicTacToeGame() {
         this.players = List.of(
-                new Player("Player1", TicTacToeSymbol.X),
-                new Player("Player2", TicTacToeSymbol.O)
+                new Player("Player1", TicTacToePieceSymbol.X),
+                new Player("Player2", TicTacToePieceSymbol.O)
         );
         this.gameBoard = new TicTacToeBoard(boardSize, boardSize);
         this.currentPlayerPosition = 0;
     }
 
-    public Optional<Player> startGame() {
+    @Override
+    public GameResult startGame() {
         try (Scanner scanner = new Scanner(System.in)) {
             while (isAnyPositionAvailable(gameBoard)) {
                 displayBoard();
@@ -32,11 +33,11 @@ public class TicTacToeGame {
 
                 if (checkWinner(playerTurn)) {
                     displayBoard();
-                    return Optional.of(playerTurn);
+                    return new GameResult(GameState.WIN, playerTurn);
                 }
             }
             displayBoard();
-            return Optional.empty();
+            return new GameResult(GameState.DRAW, null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -83,16 +84,16 @@ public class TicTacToeGame {
     }
 
     private boolean checkWinner(Player playerTurn) {
-        Symbol symbol = playerTurn.getSymbol();
-        return isRowWin(symbol) || isColWin(symbol) || isDiagonalWin(symbol);
+        PieceSymbol pieceSymbol = playerTurn.getSymbol();
+        return isRowWin(pieceSymbol) || isColWin(pieceSymbol) || isDiagonalWin(pieceSymbol);
     }
 
-    private boolean isRowWin(Symbol symbol) {
+    private boolean isRowWin(PieceSymbol pieceSymbol) {
         for (int row = 0; row < gameBoard.getRow(); row++) {
             boolean win = true;
             for (int col = 0; col < gameBoard.getCol(); col++) {
                 Cell cell = gameBoard.getCell(row, col);
-                if (cell == null || !cell.getSymbol().equals(symbol)) {
+                if (cell == null || !cell.pieceSymbol().equals(pieceSymbol)) {
                     win = false;
                     break;
                 }
@@ -102,12 +103,12 @@ public class TicTacToeGame {
         return false;
     }
 
-    private boolean isColWin(Symbol symbol) {
+    private boolean isColWin(PieceSymbol pieceSymbol) {
         for (int col = 0; col < gameBoard.getCol(); col++) {
             boolean win = true;
             for (int row = 0; row < gameBoard.getRow(); row++) {
                 Cell cell = gameBoard.getCell(row, col);
-                if (cell == null || !cell.getSymbol().equals(symbol)) {
+                if (cell == null || !cell.pieceSymbol().equals(pieceSymbol)) {
                     win = false;
                     break;
                 }
@@ -117,16 +118,16 @@ public class TicTacToeGame {
         return false;
     }
 
-    private boolean isDiagonalWin(Symbol symbol) {
+    private boolean isDiagonalWin(PieceSymbol pieceSymbol) {
         boolean leftDiagonal = true;
         boolean rightDiagonal = true;
         for (int i = 0; i < gameBoard.getRow(); i++) {
             Cell leftCell = gameBoard.getCell(i, i);
-            if (leftCell == null || !leftCell.getSymbol().equals(symbol)) {
+            if (leftCell == null || !leftCell.pieceSymbol().equals(pieceSymbol)) {
                 leftDiagonal = false;
             }
             Cell rightCell = gameBoard.getCell(i, gameBoard.getCol() - i - 1);
-            if (rightCell == null || !rightCell.getSymbol().equals(symbol)) {
+            if (rightCell == null || !rightCell.pieceSymbol().equals(pieceSymbol)) {
                 rightDiagonal = false;
             }
         }
